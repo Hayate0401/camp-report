@@ -832,10 +832,7 @@ function downloadAllergyCSV() {
 function getCancelRules() { return JSON.parse(localStorage.getItem('camp_cancel') || '[]'); }
 function saveCancelRules(r) { localStorage.setItem('camp_cancel', JSON.stringify(r)); }
 function openCancelEdit() { renderCancelEditor(); document.getElementById('cancel-modal').classList.add('active'); }
-function closeCancelModal() {
-  document.getElementById('cancel-modal').classList.remove('active');
-  document.getElementById('cancel-editor').innerHTML = '';
-}
+function closeCancelModal() { document.getElementById('cancel-modal').classList.remove('active'); document.getElementById('cancel-editor').innerHTML = ''; }
 function renderCancelEditor() {
   const rules = getCancelRules();
   const el = document.getElementById('cancel-editor');
