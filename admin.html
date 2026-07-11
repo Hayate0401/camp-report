@@ -718,11 +718,12 @@ async function initApp() {
 }
 
 // ===== QUICK LINKS =====
+ async function savePhotoUrl() {
   const url = document.getElementById('photo-url-input').value.trim();
   if (url) {
     const settings = await gasGet('getSettings');
     settings.photo_url = url;
-    await gasPost('saveSettings', { settings });
+    await gasPost('saveSettings', { data: settings });
     document.getElementById('photo-open-btn').style.display = 'inline-flex';
     showToast('URLを保存しました');
   }
