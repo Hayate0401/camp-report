@@ -773,13 +773,13 @@ async function renderScheduleEditor() {
     </div>`).join('') + `<button onclick="addDay()" style="width:100%;padding:0.55rem;background:white;border:1.5px dashed var(--blue);border-radius:8px;cursor:pointer;color:var(--blue);font-size:0.88rem;font-family:inherit;font-weight:500;">+ 日程を追加</button>`;
 }
 
-function updateDayLabel(di, v) { const s=getSchedule(); s[di].label=v; saveSchedule(s); }
-function updateDayDate(di, v) { const s=getSchedule(); s[di].date=v; saveSchedule(s); }
-function updateItem(di, ii, key, v) { const s=getSchedule(); s[di].items[ii][key]=v; saveSchedule(s); }
-function removeDay(di) { const s=getSchedule(); s.splice(di,1); saveSchedule(s); renderScheduleEditor(); }
-function removeItem(di, ii) { const s=getSchedule(); s[di].items.splice(ii,1); saveSchedule(s); renderScheduleEditor(); }
-function addDay() { const s=getSchedule(); s.push({label:'新しい日程',date:'',items:[]}); saveSchedule(s); renderScheduleEditor(); }
-function addItem(di) { const s=getSchedule(); s[di].items.push({time:'',content:'',note:''}); saveSchedule(s); renderScheduleEditor(); }
+async function updateDayLabel(di, v) { const s=getSchedule(); s[di].label=v; await saveSchedule(s); }
+async function updateDayDate(di, v) { const s=getSchedule(); s[di].date=v; await saveSchedule(s); }
+async function updateItem(di, ii, key, v) { const s=getSchedule(); s[di].items[ii][key]=v; await saveSchedule(s); }
+async function removeDay(di) { const s=getSchedule(); s.splice(di,1); await saveSchedule(s); renderScheduleEditor(); }
+async function removeItem(di, ii) { const s=getSchedule(); s[di].items.splice(ii,1); await saveSchedule(s); renderScheduleEditor(); }
+async function addDay() { const s=getSchedule(); s.push({label:'新しい日程',date:'',items:[]}); await saveSchedule(s); renderScheduleEditor(); }
+async function addItem(di) { const s=getSchedule(); s[di].items.push({time:'',content:'',note:''}); await saveSchedule(s); renderScheduleEditor(); }
 
 // アレルギー管理
 let _allergy = [];
