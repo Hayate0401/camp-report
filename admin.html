@@ -718,7 +718,7 @@ async function initApp() {
 }
 
 // ===== QUICK LINKS =====
-async function savePhotoUrl() {
+await gasPost('saveSettings', { data: settings });
   const url = document.getElementById('photo-url-input').value.trim();
   if (url) {
     const settings = await gasGet('getSettings');
@@ -742,7 +742,7 @@ function closeScheduleModal() {
 }
 
 function getSchedule() { return _schedule; }
-async function saveSchedule(s) { _schedule = s; await gasPost('saveSchedule', { schedule: s }); }
+async function saveSchedule(s) { _schedule = s; await gasPost('saveSchedule', { data: s }); }
 
 async function renderScheduleEditor() {
   _schedule = await gasGet('getSchedule');
@@ -851,7 +851,7 @@ function downloadAllergyCSV() {
 // キャンセル規約
 // キャンセル規約
 function getCancelRules() { return _cancel; }
-async function saveCancelRules(r) { _cancel = r; await gasPost('saveCancel', { cancel: r }); }
+async function saveCancelRules(r) { _cancel = r; await gasPost('saveCancel', { data: r }); }
 async function openCancelEdit() { _cancel = await gasGet('getCancel'); renderCancelEditor(); document.getElementById('cancel-modal').classList.add('active'); }
 function closeCancelModal() { document.getElementById('cancel-modal').classList.remove('active'); document.getElementById('cancel-editor').innerHTML = ''; }
 
