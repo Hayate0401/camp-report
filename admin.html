@@ -903,13 +903,21 @@ function insertLink2() {
 }
  function insertImage() {
   document.getElementById('editor').focus();
-  const url = prompt('画像のURLを入力（Google DriveなどのURL）:');
-  if (url) document.execCommand('insertImage', false, url);
+  let url = prompt('画像のURLを入力（Google DriveなどのURL）:');
+  if (url) {
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (match) url = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    document.execCommand('insertImage', false, url);
+  }
 }
 function insertImage2() {
   document.getElementById('edit-editor').focus();
-  const url = prompt('画像のURLを入力（Google DriveなどのURL）:');
-  if (url) document.execCommand('insertImage', false, url);
+  let url = prompt('画像のURLを入力（Google DriveなどのURL）:');
+  if (url) {
+    const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
+    if (match) url = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    document.execCommand('insertImage', false, url);
+  }
 }
 
 // ===== MEDIA =====
