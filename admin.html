@@ -906,7 +906,7 @@ function insertLink2() {
   let url = prompt('画像のURLを入力（Google DriveなどのURL）:');
   if (url) {
     const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    if (match) url = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    if (match) url = `https://lh3.googleusercontent.com/d/${match[1]}`;
     document.execCommand('insertImage', false, url);
   }
 }
@@ -915,7 +915,7 @@ function insertImage2() {
   let url = prompt('画像のURLを入力（Google DriveなどのURL）:');
   if (url) {
     const match = url.match(/\/d\/([a-zA-Z0-9_-]+)/);
-    if (match) url = `https://drive.google.com/uc?export=view&id=${match[1]}`;
+    if (match) url = `https://lh3.googleusercontent.com/d/${match[1]}`;
     document.execCommand('insertImage', false, url);
   }
 }
