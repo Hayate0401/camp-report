@@ -1057,7 +1057,9 @@ function openEditModal(id) {
   editingId = id;
   editMediaFiles = [];
   const post = getPosts().find(p => p.id === id);
-  document.getElementById('edit-datetime').value = post.datetime;
+  const d = new Date(post.datetime);
+  const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  document.getElementById('edit-datetime').value = local.toISOString().slice(0, 16);
   document.getElementById('edit-title').value = post.title;
   document.getElementById('edit-editor').innerHTML = post.body;
   document.getElementById('edit-modal').classList.add('active');
