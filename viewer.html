@@ -373,7 +373,7 @@ async function initViewer() {
     document.getElementById('header-links').style.display = 'flex';
     document.getElementById('photo-btn').style.display = 'none';
   }
-  const posts = await gasGet('getPosts');
+  const posts = await gasGet('getPostsV2');
   allPosts = posts;
   renderPosts(posts);
 }
