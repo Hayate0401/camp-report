@@ -672,6 +672,13 @@ async function gasGet(action) {
   const res = await fetch(`${GAS_URL}?action=${action}&t=${Date.now()}`, { cache: 'no-store' });
   return res.json();
 }
+async function gasPostV2(action, data) {
+  const res = await fetch(GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action, data })
+  });
+  return res.json();
+}
 async function gasPost(action, payload) {
   const res = await fetch(GAS_URL, {
     method: 'POST',
@@ -973,7 +980,7 @@ function removeEditMedia(i) { editMediaFiles.splice(i, 1); renderEditPreviews();
 // ===== DATA =====
 function getPosts() { return _posts; }
 async function loadPosts() {
-  _posts = await gasGet('getPosts');
+  _posts = await gasGet('getPostsV2');
   renderPostList();
 }
 async function savePosts(posts) {
@@ -988,22 +995,21 @@ async function submitPost() {
   if (!dt || !title || !body || body === '') { showToast('日時・タイトル・本文を入力してください'); return; }
 
   showToast('投稿中...');
-  const posts = getPosts();
-  posts.unshift({
+  const newPost = {
     id: Date.now(),
     datetime: dt,
     title,
     body,
     media: [...newMediaFiles]
-  });
-  await savePosts(posts);
+  };
+  await gasPostV2('addPostV2', newPost);
   newMediaFiles = [];
   document.getElementById('editor').innerHTML = '';
   document.getElementById('post-title').value = '';
   const now = new Date();
   const local = new Date(now.getTime() - now.getTimezoneOffset() * 60000);
   document.getElementById('post-datetime').value = local.toISOString().slice(0, 16);
-  renderPostList();
+  await loadPosts();
   showToast('投稿しました！');
 }
 
