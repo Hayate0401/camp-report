@@ -1040,17 +1040,15 @@ async function movePost(i, dir) {
   const posts = getPosts();
   const j = i + dir;
   if (j < 0 || j >= posts.length) return;
-  [posts[i], posts[j]] = [posts[j], posts[i]];
-  await savePosts(posts);
-  renderPostList();
+  await gasPostV2('reorderPostV2', { id1: posts[i].id, id2: posts[j].id });
+  await loadPosts();
 }
 
 async function deletePost(id) {
   if (!confirm('この記事を削除しますか？')) return;
   showToast('削除中...');
-  const posts = getPosts().filter(p => p.id !== id);
-  await savePosts(posts);
-  renderPostList();
+  await gasPostV2('deletePostV2', { id });
+  await loadPosts();
   showToast('削除しました');
 }
 
@@ -1078,8 +1076,8 @@ async function saveEdit() {
   posts[idx].body = document.getElementById('edit-editor').innerHTML.trim();
   posts[idx].media = [...(posts[idx].media || []), ...editMediaFiles];
   showToast('保存中...');
-  await savePosts(posts);
-  renderPostList();
+  await gasPostV2('updatePostV2', posts[idx]);
+  await loadPosts();
   closeEditModal();
   showToast('保存しました！');
 }
